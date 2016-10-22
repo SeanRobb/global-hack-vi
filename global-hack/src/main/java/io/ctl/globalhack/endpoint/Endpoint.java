@@ -53,6 +53,7 @@ public class Endpoint {
             personInNeed.setId(UUID.randomUUID().toString());
             personInNeed.setDateCreated(new Date());
         }
+        personInNeed.setDateUpdated(new Date());
         return personInNeedRepository.save(personInNeed);
     }
 
