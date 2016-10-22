@@ -22,6 +22,13 @@ public class UiProviderMarshaller {
         provider.setGovernmentEntity(uiProvider.getGovernmentEntity());
         provider.setFaithBased(uiProvider.getFaithBased());
 
+        provider.setAddress(new Address()
+                .setZipCode(uiProvider.getAgencyZip())
+                .setCity(uiProvider.getAgencyCity())
+                .setState(uiProvider.getAgencyState())
+                .setDataQuality(true)
+                .setStreet(uiProvider.getAgencyStreet()));
+
         provider.setAgencyExecInfo(
                 new ContactInfo()
                         .setEmail(uiProvider.getAgencyExecEmail())
@@ -35,7 +42,6 @@ public class UiProviderMarshaller {
                         .setName(uiProvider.getAdmissionContactName())
                         .setNumber(uiProvider.getAdmissionContactNumber())
         );
-
 
 
         if (StringUtils.isEmpty(uiProvider.getUnitNumber())) {
@@ -53,7 +59,6 @@ public class UiProviderMarshaller {
         }
 
 
-        uiProvider.getAgencyStreet();
         uiProvider.getPopServed();
         uiProvider.getEligibilityCriteria();
 
