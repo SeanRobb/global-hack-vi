@@ -23,4 +23,7 @@ public class PersonInNeed {
     private Ethnicity ethnicity;
     private List<String> phoneNumbers;
     private String message;
+    private String state;
+    private String postalCode;
+    private String city;
 }
