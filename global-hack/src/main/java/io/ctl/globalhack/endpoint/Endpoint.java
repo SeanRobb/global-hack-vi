@@ -1,7 +1,7 @@
 package io.ctl.globalhack.endpoint;
 
 import io.ctl.globalhack.common.Coordinator;
-import io.ctl.globalhack.common.NeedService;
+import io.ctl.globalhack.common.NeedServiceOrg;
 import io.ctl.globalhack.common.PersonInNeed;
 import io.ctl.globalhack.repository.CoordinatorRepository;
 import io.ctl.globalhack.repository.NeedServiceRepository;
@@ -32,12 +32,12 @@ public class Endpoint {
     }
 
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/needService")
-    public NeedService createNeedService(NeedService needService) {
-        if (needService.getId() == null){
-            needService.setId(UUID.randomUUID().toString());
+    @RequestMapping(method = RequestMethod.PUT, path = "/needServiceOrg")
+    public NeedServiceOrg createNeedService(NeedServiceOrg needServiceOrg) {
+        if (needServiceOrg.getId() == null){
+            needServiceOrg.setId(UUID.randomUUID().toString());
         }
-        return needServiceRepository.save(needService);
+        return needServiceRepository.save(needServiceOrg);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
