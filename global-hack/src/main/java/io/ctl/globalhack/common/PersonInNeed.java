@@ -17,9 +17,9 @@ public class PersonInNeed {
     private String id;
 
     //Base Person info
-    private String firstName;
-    private String middleName;
-    private String lastName;
+    private String firstname;
+    private String midname;
+    private String lastname;
 
     private Gender gender;
     private Race race;

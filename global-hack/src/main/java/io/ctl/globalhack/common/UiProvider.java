@@ -8,19 +8,23 @@ import java.util.List;
 public class UiProvider {
 
     private String agencyName;
-    private String agencyAddress;
     private String agencyPhone;
     private String agencyWebsite;
 
-    private String nonProfitStatus;
-    private String governmentEntity;
-    private String faithBased;
+    private String agencyStreet;
+    private String agencyCity;
+    private String agencyState;
+    private String agencyZip;
+
+    private ProviderStatus nonProfitStatus;
+    private ProviderStatus governmentEntity;
+    private ProviderStatus faithBased;
 
     private String agencyExecName;
     private String agencyExecNumber;
     private String agencyExecEmail;
 
-    private List<String> popServed;
+    private List<Boolean> popServed;
 
     private String eligibilityCriteria;
     private String admissionContactName;

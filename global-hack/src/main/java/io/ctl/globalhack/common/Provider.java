@@ -18,9 +18,9 @@ public class Provider {
     private String website;
 
     private OrganizationType organizationType;
-    private String nonProfitStatus;
-    private String governmentEntity;
-    private String faithBased;
+    private ProviderStatus nonProfitStatus;
+    private ProviderStatus governmentEntity;
+    private ProviderStatus faithBased;
 
     private ContactInfo agencyInfo;
     private ContactInfo agencyExecInfo;

@@ -4,11 +4,13 @@ import io.ctl.globalhack.common.UiProvider;
 import io.ctl.globalhack.common.*;
 import io.ctl.globalhack.repository.*;
 import io.ctl.globalhack.service.PersonInNeedService;
+import io.ctl.globalhack.service.UiProviderMarshaller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +30,8 @@ public class Endpoint {
     private ServiceTypeRepository serviceTypeRepository;
     @Autowired
     private RegisteredPersonInNeedRepository registeredPersonInNeedRepository;
+    @Autowired
+    private UiProviderMarshaller uiProviderMarshaller;
     @Autowired
     private PersonInNeedService personInNeedService;
 
@@ -52,24 +56,23 @@ public class Endpoint {
         return personInNeedRepository.save(personInNeed);
     }
 
-
-    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
-    public Provider createNeedService(@RequestBody Provider provider) {
-        log.info("Creating Need Service... {}", provider);
-        if (provider.getId() == null) {
-            provider.setId(UUID.randomUUID().toString());
-        }
-        return providerRepository.save(provider);
-    }
-
+//
 //    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
-//    public Provider createNeedService(@RequestBody UiProvider provider) {
+//    public Provider createNeedService(@RequestBody Provider provider) {
 //        log.info("Creating Need Service... {}", provider);
 //        if (provider.getId() == null) {
 //            provider.setId(UUID.randomUUID().toString());
 //        }
 //        return providerRepository.save(provider);
 //    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
+    public Provider createNeedService(@RequestBody UiProvider uiProvider) {
+        log.info("Creating Need Service... {}", uiProvider);
+        Provider provider = uiProviderMarshaller.convert(uiProvider);
+        provider.setId(UUID.randomUUID().toString());
+        return providerRepository.save(provider);
+    }
 
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
