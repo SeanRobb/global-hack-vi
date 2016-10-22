@@ -24,7 +24,7 @@ public class UiProvider {
     private String agencyExecNumber;
     private String agencyExecEmail;
 
-    private List<String> popServed;
+    private List<Boolean> popServed;
 
     private String eligibilityCriteria;
     private String admissionContactName;
