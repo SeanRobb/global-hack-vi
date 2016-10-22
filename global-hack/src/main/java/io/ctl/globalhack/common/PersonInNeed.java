@@ -1,6 +1,6 @@
 package io.ctl.globalhack.common;
 
-import io.ctl.globalhack.common.person.info.Race;
+import io.ctl.globalhack.common.person.info.Ethnicity;
 import io.ctl.globalhack.common.person.info.Gender;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -23,6 +23,9 @@ public class PersonInNeed {
     //bare minimum
     private List<String> phoneNumbers;
     private String message;
+    private String state;
+    private String postalCode;
+    private String city;
 
     private Date dateCreated;
     private Date dateUpdated;

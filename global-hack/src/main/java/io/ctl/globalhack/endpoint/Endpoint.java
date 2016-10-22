@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -113,7 +114,13 @@ public class Endpoint {
 
 
     @RequestMapping(method = RequestMethod.PUT, path = "/twilio/personInNeed")
-    public PersonInNeed createTwilioPersonInNeed(@RequestParam(value="Body", required=false) String message) {
+    public PersonInNeed createTwilioPersonInNeed(
+            @RequestParam(value="From", required=false) String fromPhoneNumber,
+            @RequestParam(value="FromCity", required=false) String city,
+            @RequestParam(value="FromState", required=false) String state,
+            @RequestParam(value="FromZip", required=false) String postalCode,
+            @RequestParam(value="Body", required=false) String message
+    ) {
 
         PersonInNeed personInNeed = new PersonInNeed();
 
@@ -122,6 +129,18 @@ public class Endpoint {
             personInNeed.setId(UUID.randomUUID().toString());
         }
 
+        if(fromPhoneNumber != null){
+            personInNeed.setPhoneNumbers(Arrays.asList(fromPhoneNumber));
+        }
+        if(city != null){
+            personInNeed.setCity(city);
+        }
+        if(state != null){
+            personInNeed.setState(state);
+        }
+        if(postalCode != null){
+            personInNeed.setPostalCode(postalCode);
+        }
         if(message != null){
             personInNeed.setMessage(message);
         }
