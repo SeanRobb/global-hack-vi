@@ -70,9 +70,8 @@
                 <version>0.4.13</version>
                 <configuration>
                     <baseImage>java:8</baseImage>
-                    <imageName>seanprobb/global-hack</imageName>
+                    <imageName>ghvitools.0x3f8.com:5001/global-hack</imageName>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-                    <useConfigFile>true</useConfigFile>
                     <imageTags>
                         <imageTag>latest</imageTag>
                         <imageTag>kevin</imageTag>
