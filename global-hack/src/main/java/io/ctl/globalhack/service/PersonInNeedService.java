@@ -1,5 +1,9 @@
 package io.ctl.globalhack.service;
 
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import io.ctl.globalhack.common.Address;
 import io.ctl.globalhack.common.PersonInNeed;
 import io.ctl.globalhack.common.Provider;
@@ -20,10 +24,15 @@ import java.util.UUID;
 @Slf4j
 public class PersonInNeedService {
 
+    public static final String TWILIO_PHONE_NUMBER = "+13143100135";
     @Autowired
     private PersonInNeedRepository personInNeedRepository;
     @Autowired
     private ProviderRepository providerRepository;
+
+    public static final String ACCOUNT_SID = "SK2badf512495c94f521ea229dff6ca187";
+    public static final String AUTH_TOKEN = "BbF3s59GKXKVJ11p7xvDJ7SoFNxR3iyz";
+
 
     public PersonInNeed onboardPersonInNeedThatSentText(String fromPhoneNumber,
                                                         String city,
@@ -77,9 +86,34 @@ public class PersonInNeedService {
 
         List<Provider> providers = findPersonInNeedMatchingProvider(personInNeed);
 
+        if(providers != null && providers.size() > 0){
 
+            String message = "";
+
+            for(Provider provider : providers){
+                message += provider.getAddress().getZipCode() + "/n";
+            }
+
+            sendMessage(personInNeed, message);
+        }
 
         return providers;
+
+    }
+
+    private void sendMessage(PersonInNeed personInNeed, String messageToPersonInNeed) {
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        for(String phoneNumber: personInNeed.getPhoneNumbers()){
+
+            Message message = Message.creator(
+                    new PhoneNumber(phoneNumber),  // To number
+                    new PhoneNumber(TWILIO_PHONE_NUMBER),  // From number
+                    messageToPersonInNeed                    // SMS body
+            ).create();
+
+        }
 
     }
 
