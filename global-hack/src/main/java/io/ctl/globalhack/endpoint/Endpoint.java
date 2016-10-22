@@ -57,14 +57,6 @@ public class Endpoint {
     }
 
 
-//    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
-//    public Provider createNeedService(@RequestBody Provider provider) {
-//        log.info("Creating Need Service... {}", provider);
-//        if (provider.getId() == null) {
-//            provider.setId(UUID.randomUUID().toString());
-//        }
-//        return providerRepository.save(provider);
-//    }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/provider")
     public Provider createNeedService(@RequestBody UiProvider uiProvider) {
