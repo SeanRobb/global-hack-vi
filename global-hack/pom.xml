@@ -72,6 +72,7 @@
                     <baseImage>java:8</baseImage>
                     <imageName>ghvitools.0x3f8.com:5001/global-hack</imageName>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <useConfigFile>true</useConfigFile>
                     <imageTags>
                         <imageTag>latest</imageTag>
                         <imageTag>kevin</imageTag>
