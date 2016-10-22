@@ -17,10 +17,12 @@ public class Provider {
     private String phone;
     private String website;
 
+    private OrganizationType organizationType;
     private String nonProfitStatus;
     private String governmentEntity;
     private String faithBased;
 
+    private ContactInfo agencyInfo;
     private ContactInfo agencyExecInfo;
     private String hoursOfOperation;
     private String peopleServed;
@@ -28,6 +30,6 @@ public class Provider {
 
     private List<Service> offer;
 
-//    private List<Service> available;
-//    private List<Service> inUse;
+    private List<Service> available;
+    private List<Service> inUse;
 }

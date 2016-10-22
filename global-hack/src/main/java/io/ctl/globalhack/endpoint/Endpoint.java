@@ -1,5 +1,6 @@
 package io.ctl.globalhack.endpoint;
 
+import io.ctl.globalhack.common.UiProvider;
 import io.ctl.globalhack.common.*;
 import io.ctl.globalhack.repository.*;
 import io.ctl.globalhack.service.PersonInNeedService;
@@ -60,6 +61,16 @@ public class Endpoint {
         }
         return providerRepository.save(provider);
     }
+
+//    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
+//    public Provider createNeedService(@RequestBody UiProvider provider) {
+//        log.info("Creating Need Service... {}", provider);
+//        if (provider.getId() == null) {
+//            provider.setId(UUID.randomUUID().toString());
+//        }
+//        return providerRepository.save(provider);
+//    }
+
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
     public Coordinator createCoordinator(@RequestBody Coordinator coordinator) {
