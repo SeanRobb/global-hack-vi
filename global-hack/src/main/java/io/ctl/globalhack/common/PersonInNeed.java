@@ -26,9 +26,7 @@ public class PersonInNeed {
     private Ethnicity ethnicity;
 
     //Location
-    private String state;
-    private String postalCode;
-    private String city;
+    private Address address;
 
     //bare minimum
     private List<String> phoneNumbers;

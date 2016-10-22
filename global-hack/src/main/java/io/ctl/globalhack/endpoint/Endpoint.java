@@ -125,10 +125,9 @@ public class Endpoint {
     @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
     public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
         log.info("Getting All Persons In Need...");
-        if(!isVeteran){
+        if (!isVeteran) {
             return registeredPersonInNeedRepository.findByVeteranInfo(null);
-        }
-        else {
+        } else {
             return registeredPersonInNeedRepository.findByVeteranInfo(null);
         }
     }
@@ -145,6 +144,8 @@ public class Endpoint {
     ) {
 
         PersonInNeed personInNeed = new PersonInNeed();
+        Address address = new Address();
+        personInNeed.setAddress(address);
 
         log.info("Creating Person In Need... {}", personInNeed);
         if (personInNeed.getId() == null) {
@@ -154,14 +155,16 @@ public class Endpoint {
         if (fromPhoneNumber != null) {
             personInNeed.setPhoneNumbers(Arrays.asList(fromPhoneNumber));
         }
+
+
         if (city != null) {
-            personInNeed.setCity(city);
+            address.setCity(city);
         }
         if (state != null) {
-            personInNeed.setState(state);
+            address.setState(state);
         }
         if (postalCode != null) {
-            personInNeed.setPostalCode(postalCode);
+            address.setZipCode(postalCode);
         }
         if (message != null) {
             personInNeed.setMessage(message);
