@@ -59,7 +59,7 @@ public class UiProviderMarshaller {
         }
 
 
-        uiProvider.getPopServed();
+        provider.setPopServed(uiProvider.getPopServed());
         uiProvider.getEligibilityCriteria();
 
         return provider;
