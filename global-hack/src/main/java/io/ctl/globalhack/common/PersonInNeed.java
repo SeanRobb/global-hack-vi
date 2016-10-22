@@ -20,6 +20,7 @@ public class PersonInNeed {
     private String firstName;
     private String middleName;
     private String lastName;
+
     private Gender gender;
     private Race race;
     private Ethnicity ethnicity;

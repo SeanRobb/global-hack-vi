@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class Endpoint {
     @Autowired
     private CoordinatorRepository coordinatorRepository;
     @Autowired
-    private NeedServiceOrgRepository needServiceOrgRepository;
+    private ProviderRepository providerRepository;
     @Autowired
     private PersonInNeedRepository personInNeedRepository;
     @Autowired
@@ -31,7 +32,9 @@ public class Endpoint {
         log.info("Creating Person In Need... {}", personInNeed);
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
+            personInNeed.setDateCreated(new Date());
         }
+        personInNeed.setDateUpdated(new Date());
         return personInNeedRepository.save(personInNeed);
     }
 
@@ -40,18 +43,19 @@ public class Endpoint {
         log.info("Creating Person In Need... {}", personInNeed);
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
+            personInNeed.setDateCreated(new Date());
         }
         return personInNeedRepository.save(personInNeed);
     }
 
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/needServiceOrg")
-    public NeedServiceOrg createNeedService(@RequestBody NeedServiceOrg needServiceOrg) {
-        log.info("Creating Need Service... {}", needServiceOrg);
-        if (needServiceOrg.getId() == null) {
-            needServiceOrg.setId(UUID.randomUUID().toString());
+    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
+    public Provider createNeedService(@RequestBody Provider provider) {
+        log.info("Creating Need Service... {}", provider);
+        if (provider.getId() == null) {
+            provider.setId(UUID.randomUUID().toString());
         }
-        return needServiceOrgRepository.save(needServiceOrg);
+        return providerRepository.save(provider);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
@@ -87,22 +91,22 @@ public class Endpoint {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg")
-    public List<NeedServiceOrg> getNeedServiceOrg() {
+    public List<Provider> getNeedServiceOrg() {
         log.info("Finding Need Org...");
-        return needServiceOrgRepository.findAll();
+        return providerRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = "service")
-    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName) {
+    public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName) {
         log.info("Finding Need... Service Name: {}", serviceName);
-        return needServiceOrgRepository.findByAvailableNameIn(serviceName);
+        return providerRepository.findByAvailableNameIn(serviceName);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = {"service", "available"})
-    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
+    public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
 
         log.info("FindingNeed... Service Name: {} Amount Available: {}", serviceName, amountAvailable);
-        return needServiceOrgRepository.findByAvailableNameInAndAvailableAmountGreaterThanEqual(serviceName, amountAvailable);
+        return providerRepository.findByAvailableNameInAndAvailableAmountGreaterThanEqual(serviceName, amountAvailable);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/service")
@@ -118,15 +122,26 @@ public class Endpoint {
         return personInNeedRepository.findAll();
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
+    public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
+        log.info("Getting All Persons In Need...");
+        if(!isVeteran){
+            return registeredPersonInNeedRepository.findByVeteranInfo(null);
+        }
+        else {
+            return registeredPersonInNeedRepository.findByVeteranInfo(null);
+        }
+    }
 
+//Twilio
 
     @RequestMapping(method = RequestMethod.POST, path = "/twilio/personInNeed")
     public PersonInNeed createTwilioPersonInNeed(
-            @RequestParam(value="From", required=false) String fromPhoneNumber,
-            @RequestParam(value="FromCity", required=false) String city,
-            @RequestParam(value="FromState", required=false) String state,
-            @RequestParam(value="FromZip", required=false) String postalCode,
-            @RequestParam(value="Body", required=false) String message
+            @RequestParam(value = "From", required = false) String fromPhoneNumber,
+            @RequestParam(value = "FromCity", required = false) String city,
+            @RequestParam(value = "FromState", required = false) String state,
+            @RequestParam(value = "FromZip", required = false) String postalCode,
+            @RequestParam(value = "Body", required = false) String message
     ) {
 
         PersonInNeed personInNeed = new PersonInNeed();
@@ -136,19 +151,19 @@ public class Endpoint {
             personInNeed.setId(UUID.randomUUID().toString());
         }
 
-        if(fromPhoneNumber != null){
+        if (fromPhoneNumber != null) {
             personInNeed.setPhoneNumbers(Arrays.asList(fromPhoneNumber));
         }
-        if(city != null){
+        if (city != null) {
             personInNeed.setCity(city);
         }
-        if(state != null){
+        if (state != null) {
             personInNeed.setState(state);
         }
-        if(postalCode != null){
+        if (postalCode != null) {
             personInNeed.setPostalCode(postalCode);
         }
-        if(message != null){
+        if (message != null) {
             personInNeed.setMessage(message);
         }
         return personInNeedRepository.save(personInNeed);
