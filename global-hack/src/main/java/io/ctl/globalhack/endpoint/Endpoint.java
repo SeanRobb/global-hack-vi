@@ -2,18 +2,19 @@ package io.ctl.globalhack.endpoint;
 
 import io.ctl.globalhack.common.*;
 import io.ctl.globalhack.repository.*;
+import io.ctl.globalhack.service.PersonInNeedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*")
 public class Endpoint {
 
     @Autowired
@@ -26,6 +27,8 @@ public class Endpoint {
     private ServiceTypeRepository serviceTypeRepository;
     @Autowired
     private RegisteredPersonInNeedRepository registeredPersonInNeedRepository;
+    @Autowired
+    private PersonInNeedService personInNeedService;
 
     @RequestMapping(method = RequestMethod.POST, path = "/personInNeed")
     public PersonInNeed createPersonInNeed(@RequestBody PersonInNeed personInNeed) {
@@ -143,32 +146,8 @@ public class Endpoint {
             @RequestParam(value = "Body", required = false) String message
     ) {
 
-        PersonInNeed personInNeed = new PersonInNeed();
-        Address address = new Address();
-        personInNeed.setAddress(address);
-
-        log.info("Creating Person In Need... {}", personInNeed);
-        if (personInNeed.getId() == null) {
-            personInNeed.setId(UUID.randomUUID().toString());
-        }
-
-        if (fromPhoneNumber != null) {
-            personInNeed.setPhoneNumbers(Arrays.asList(fromPhoneNumber));
-        }
-
-
-        if (city != null) {
-            address.setCity(city);
-        }
-        if (state != null) {
-            address.setState(state);
-        }
-        if (postalCode != null) {
-            address.setZipCode(postalCode);
-        }
-        if (message != null) {
-            personInNeed.setMessage(message);
-        }
-        return personInNeedRepository.save(personInNeed);
+        return personInNeedService.savePersonInNeed(fromPhoneNumber, city, state, postalCode, message);
     }
+
+
 }
