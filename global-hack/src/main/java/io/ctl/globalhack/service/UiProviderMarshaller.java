@@ -18,6 +18,9 @@ public class UiProviderMarshaller {
         provider.setPhone(uiProvider.getAgencyPhone());
         provider.setWebsite(uiProvider.getAgencyWebsite());
         provider.setOffer(new ArrayList<Service>());
+        provider.setNonProfitStatus(uiProvider.getNonProfitStatus());
+        provider.setGovernmentEntity(uiProvider.getGovernmentEntity());
+        provider.setFaithBased(uiProvider.getFaithBased());
 
         provider.setAgencyExecInfo(
                 new ContactInfo()
@@ -33,14 +36,6 @@ public class UiProviderMarshaller {
                         .setNumber(uiProvider.getAdmissionContactNumber())
         );
 
-        uiProvider.getAgencyAddress();
-
-        uiProvider.getNonProfitStatus();
-        uiProvider.getGovernmentEntity();
-        uiProvider.getFaithBased();
-
-        uiProvider.getPopServed();
-        uiProvider.getEligibilityCriteria();
 
 
         if (StringUtils.isEmpty(uiProvider.getUnitNumber())) {
@@ -56,6 +51,12 @@ public class UiProviderMarshaller {
                     .setAmount(BigDecimal.valueOf(Integer.parseInt(uiProvider.getBedNumber())));
             provider.getOffer().add(newService);
         }
+
+
+        uiProvider.getAgencyAddress();
+        uiProvider.getPopServed();
+        uiProvider.getEligibilityCriteria();
+
         return provider;
     }
 }

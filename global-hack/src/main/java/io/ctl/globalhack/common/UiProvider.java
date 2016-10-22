@@ -12,9 +12,9 @@ public class UiProvider {
     private String agencyPhone;
     private String agencyWebsite;
 
-    private String nonProfitStatus;
-    private String governmentEntity;
-    private String faithBased;
+    private ProviderStatus nonProfitStatus;
+    private ProviderStatus governmentEntity;
+    private ProviderStatus faithBased;
 
     private String agencyExecName;
     private String agencyExecNumber;
