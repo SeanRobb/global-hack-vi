@@ -1,6 +1,5 @@
 package io.ctl.globalhack.endpoint;
 
-import io.ctl.globalhack.common.UiProvider;
 import io.ctl.globalhack.common.*;
 import io.ctl.globalhack.repository.*;
 import io.ctl.globalhack.service.PersonInNeedService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -69,7 +67,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/provider")
     public Provider createNeedService(@RequestBody UiProvider uiProvider) {
-        log.info("Creating Need Service... {}", uiProvider);
+        log.info("Creating Provider Service... {}", uiProvider);
         Provider provider = uiProviderMarshaller.convert(uiProvider);
         provider.setId(UUID.randomUUID().toString());
         return providerRepository.save(provider);
@@ -160,8 +158,9 @@ public class Endpoint {
             @RequestParam(value = "FromZip", required = false) String postalCode,
             @RequestParam(value = "Body", required = false) String message
     ) {
-
-        return personInNeedService.savePersonInNeed(fromPhoneNumber, city, state, postalCode, message);
+        PersonInNeed personInNeed = personInNeedService.savePersonInNeed(fromPhoneNumber, city, state, postalCode, message);
+        log.info("Person in need Created: {}", personInNeed);
+        return personInNeed;
     }
 
 
