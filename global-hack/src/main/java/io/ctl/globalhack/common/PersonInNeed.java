@@ -18,9 +18,12 @@ public class PersonInNeed {
     private String middleName;
     private String lastName;
     private Gender gender;
-    private Date dateCreated;
-    private Date dateUpdated;
     private Race race;
+
+    //bare minimum
     private List<String> phoneNumbers;
     private String message;
+
+    private Date dateCreated;
+    private Date dateUpdated;
 }

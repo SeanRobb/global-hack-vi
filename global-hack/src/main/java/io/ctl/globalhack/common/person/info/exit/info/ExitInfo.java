@@ -10,4 +10,5 @@ public class ExitInfo {
     private Date ExitDate;
     private ResidenceType destination;
     private String otherDestination;
+    private AssessmentInfo assessmentInfo;
 }
