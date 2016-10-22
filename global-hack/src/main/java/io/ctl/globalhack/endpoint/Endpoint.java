@@ -1,14 +1,7 @@
 package io.ctl.globalhack.endpoint;
 
-import com.google.common.collect.Lists;
-import io.ctl.globalhack.common.Coordinator;
-import io.ctl.globalhack.common.NeedServiceOrg;
-import io.ctl.globalhack.common.PersonInNeed;
-import io.ctl.globalhack.common.ServiceType;
-import io.ctl.globalhack.repository.CoordinatorRepository;
-import io.ctl.globalhack.repository.NeedServiceRepository;
-import io.ctl.globalhack.repository.PersonInNeedRepository;
-import io.ctl.globalhack.repository.ServiceTypeRepository;
+import io.ctl.globalhack.common.*;
+import io.ctl.globalhack.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +18,25 @@ public class Endpoint {
     @Autowired
     private CoordinatorRepository coordinatorRepository;
     @Autowired
-    private NeedServiceRepository needServiceRepository;
+    private NeedServiceOrgRepository needServiceOrgRepository;
     @Autowired
     private PersonInNeedRepository personInNeedRepository;
     @Autowired
     private ServiceTypeRepository serviceTypeRepository;
+    @Autowired
+    private RegisteredPersonInNeedRepository registeredPersonInNeedRepository;
+
+    @RequestMapping(method = RequestMethod.POST, path = "/personInNeed")
+    public PersonInNeed createPersonInNeed(@RequestBody PersonInNeed personInNeed) {
+        log.info("Creating Person In Need... {}", personInNeed);
+        if (personInNeed.getId() == null) {
+            personInNeed.setId(UUID.randomUUID().toString());
+        }
+        return personInNeedRepository.save(personInNeed);
+    }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/personInNeed")
-    public PersonInNeed createPersonInNeed(@RequestBody PersonInNeed personInNeed) {
+    public PersonInNeed updatePersonInNeed(@RequestBody PersonInNeed personInNeed) {
         log.info("Creating Person In Need... {}", personInNeed);
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
@@ -47,7 +51,7 @@ public class Endpoint {
         if (needServiceOrg.getId() == null) {
             needServiceOrg.setId(UUID.randomUUID().toString());
         }
-        return needServiceRepository.save(needServiceOrg);
+        return needServiceOrgRepository.save(needServiceOrg);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
@@ -57,6 +61,16 @@ public class Endpoint {
             coordinator.setId(UUID.randomUUID().toString());
         }
         return coordinatorRepository.save(coordinator);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/registeredPersonInNeed")
+    public RegisteredPersonInNeed createRegisteredPersonInNeed(@RequestBody RegisteredPersonInNeed registeredPersonInNeed) {
+        log.info("Creating Registered Person in Need... {}", registeredPersonInNeed);
+        if (registeredPersonInNeed.getId() == null) {
+            registeredPersonInNeed.setId(UUID.randomUUID().toString());
+        }
+
+        return registeredPersonInNeedRepository.save(registeredPersonInNeed);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/service")
@@ -69,22 +83,31 @@ public class Endpoint {
         return serviceTypeRepository.save(serviceType);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = "service")
-    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName) {
-        log.info("findingNeed...");
-        return needServiceRepository.findByAvailableNameIn(serviceName);
+    // GETS
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg")
+    public List<NeedServiceOrg> getNeedServiceOrg() {
+        log.info("Finding Need Org...");
+        return needServiceOrgRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = {"service", "amount"})
-    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("amount") BigDecimal amountAvailable) {
+    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = "service")
+    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName) {
+        log.info("Finding Need... Service Name: {}", serviceName);
+        return needServiceOrgRepository.findByAvailableNameIn(serviceName);
+    }
 
-        log.info("findingNeed...");
-        return needServiceRepository.findByAvailableNameInAndAvailableAmount(serviceName, amountAvailable);
+    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = {"service", "available"})
+    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
+
+        log.info("FindingNeed... Service Name: {} Amount Available: {}", serviceName, amountAvailable);
+        return needServiceOrgRepository.findByAvailableNameInAndAvailableAmountGreaterThanEqual(serviceName, amountAvailable);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/service")
     public List<ServiceType> getServices() {
-        log.info("Getting...");
-        return Lists.newArrayList(serviceTypeRepository.findAll());
+        log.info("Getting All Services...");
+        return serviceTypeRepository.findAll();
     }
 }
