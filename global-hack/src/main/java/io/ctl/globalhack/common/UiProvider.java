@@ -8,9 +8,13 @@ import java.util.List;
 public class UiProvider {
 
     private String agencyName;
-    private String agencyAddress;
     private String agencyPhone;
     private String agencyWebsite;
+
+    private String agencyStreet;
+    private String agencyCity;
+    private String agencyState;
+    private String agencyZip;
 
     private ProviderStatus nonProfitStatus;
     private ProviderStatus governmentEntity;

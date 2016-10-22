@@ -53,7 +53,7 @@ public class UiProviderMarshaller {
         }
 
 
-        uiProvider.getAgencyAddress();
+        uiProvider.getAgencyStreet();
         uiProvider.getPopServed();
         uiProvider.getEligibilityCriteria();
 
