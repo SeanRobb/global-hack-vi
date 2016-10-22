@@ -11,10 +11,7 @@ import io.ctl.globalhack.repository.PersonInNeedRepository;
 import io.ctl.globalhack.repository.ServiceTypeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,7 +32,7 @@ public class Endpoint {
     private ServiceTypeRepository serviceTypeRepository;
 
     @RequestMapping(method = RequestMethod.PUT, path = "/personInNeed")
-    public PersonInNeed createPersonInNeed(PersonInNeed personInNeed) {
+    public PersonInNeed createPersonInNeed(@RequestBody PersonInNeed personInNeed) {
         log.info("Creating Person In Need... {}", personInNeed);
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
@@ -45,7 +42,7 @@ public class Endpoint {
 
 
     @RequestMapping(method = RequestMethod.PUT, path = "/needServiceOrg")
-    public NeedServiceOrg createNeedService(NeedServiceOrg needServiceOrg) {
+    public NeedServiceOrg createNeedService(@RequestBody NeedServiceOrg needServiceOrg) {
         log.info("Creating Need Service... {}", needServiceOrg);
         if (needServiceOrg.getId() == null) {
             needServiceOrg.setId(UUID.randomUUID().toString());
@@ -54,7 +51,7 @@ public class Endpoint {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
-    public Coordinator createCoordinator(Coordinator coordinator) {
+    public Coordinator createCoordinator(@RequestBody Coordinator coordinator) {
         log.info("Creating Coordinator... {}", coordinator);
         if (coordinator.getId() == null) {
             coordinator.setId(UUID.randomUUID().toString());
@@ -63,7 +60,7 @@ public class Endpoint {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/service")
-    public ServiceType createService(ServiceType serviceType) {
+    public ServiceType createService(@RequestBody ServiceType serviceType) {
         log.info("Creating Service... {}", serviceType);
         if (serviceType.getId() == null) {
             serviceType.setId(UUID.randomUUID().toString());

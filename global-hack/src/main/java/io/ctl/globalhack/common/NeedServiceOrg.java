@@ -13,6 +13,7 @@ public class NeedServiceOrg {
     @Id
     private String id;
     private String name;
+    private List<Service> offer;
     private List<Service> available;
     private List<Service> inUse;
 }
