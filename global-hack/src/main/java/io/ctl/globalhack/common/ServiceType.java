@@ -8,6 +8,6 @@ import org.springframework.data.annotation.Id;
 @Accessors(chain = true)
 public class ServiceType {
     @Id
-    public String id;
-    public String name;
+    private String id;
+    private String name;
 }
