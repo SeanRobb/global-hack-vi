@@ -75,6 +75,7 @@
                     <useConfigFile>true</useConfigFile>
                     <imageTags>
                         <imageTag>latest</imageTag>
+                        <imageTag>kevin</imageTag>
                     </imageTags>
                     <resources>
                         <resource>
