@@ -112,8 +112,15 @@ public class Endpoint {
     }
 
 
+    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed")
+    public List<PersonInNeed> getPersonsInNeed() {
+        log.info("Getting All Persons In Need...");
+        return personInNeedRepository.findAll();
+    }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/twilio/personInNeed")
+
+
+    @RequestMapping(method = RequestMethod.POST, path = "/twilio/personInNeed")
     public PersonInNeed createTwilioPersonInNeed(
             @RequestParam(value="From", required=false) String fromPhoneNumber,
             @RequestParam(value="FromCity", required=false) String city,
