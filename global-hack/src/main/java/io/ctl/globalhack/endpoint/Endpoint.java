@@ -36,7 +36,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/personInNeed")
     public PersonInNeed createPersonInNeed(PersonInNeed personInNeed) {
-        log.info("Creating Person In Need");
+        log.info("Creating Person In Need... {}", personInNeed);
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
         }
@@ -46,7 +46,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/needServiceOrg")
     public NeedServiceOrg createNeedService(NeedServiceOrg needServiceOrg) {
-        log.info("Creating Need Service");
+        log.info("Creating Need Service... {}", needServiceOrg);
         if (needServiceOrg.getId() == null) {
             needServiceOrg.setId(UUID.randomUUID().toString());
         }
@@ -55,7 +55,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
     public Coordinator createCoordinator(Coordinator coordinator) {
-        log.info("Creating Coordinator");
+        log.info("Creating Coordinator... {}", coordinator);
         if (coordinator.getId() == null) {
             coordinator.setId(UUID.randomUUID().toString());
         }
@@ -64,7 +64,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/service")
     public ServiceType createService(ServiceType serviceType) {
-        log.info("Creating Service");
+        log.info("Creating Service... {}", serviceType);
         if (serviceType.getId() == null) {
             serviceType.setId(UUID.randomUUID().toString());
         }
@@ -85,7 +85,7 @@ public class Endpoint {
         return needServiceRepository.findByAvailableNameInAndAvailableAmount(serviceName, amountAvailable);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg/service")
+    @RequestMapping(method = RequestMethod.GET, path = "/service")
     public List<ServiceType> getServices() {
         log.info("Getting...");
         return Lists.newArrayList(serviceTypeRepository.findAll());
