@@ -1,7 +1,5 @@
 package io.ctl.globalhack.config;
 
-import com.ctlts.wfaas.data.orchestrate.config.EnableOrchestrateRepositories;
-import com.ctlts.wfaas.data.orchestrate.repository.OrchestrateTemplate;
 import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

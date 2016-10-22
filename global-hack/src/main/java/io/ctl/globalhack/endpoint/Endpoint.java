@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,10 +65,15 @@ public class Endpoint {
         return serviceTypeRepository.save(serviceType);
     }
 
-//    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg")
-//    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("amount") String amountAvailable) {
-//
-//    }
+    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = "service")
+    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName) {
+        return needServiceRepository.findByAvailableNameIn(serviceName);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = {"service", "amount"})
+    public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("amount") BigDecimal amountAvailable) {
+        return needServiceRepository.findByAvailableNameInAndAvailableAmount(serviceName, amountAvailable);
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg/service")
     public List<ServiceType> getServices() {
