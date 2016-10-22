@@ -9,6 +9,7 @@ import io.ctl.globalhack.repository.CoordinatorRepository;
 import io.ctl.globalhack.repository.NeedServiceRepository;
 import io.ctl.globalhack.repository.PersonInNeedRepository;
 import io.ctl.globalhack.repository.ServiceTypeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping
+@Slf4j
 public class Endpoint {
 
     @Autowired
@@ -33,6 +36,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/personInNeed")
     public PersonInNeed createPersonInNeed(PersonInNeed personInNeed) {
+        log.info("Creating Person In Need");
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
         }
@@ -42,6 +46,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/needServiceOrg")
     public NeedServiceOrg createNeedService(NeedServiceOrg needServiceOrg) {
+        log.info("Creating Need Service");
         if (needServiceOrg.getId() == null) {
             needServiceOrg.setId(UUID.randomUUID().toString());
         }
@@ -50,6 +55,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/coordinator")
     public Coordinator createCoordinator(Coordinator coordinator) {
+        log.info("Creating Coordinator");
         if (coordinator.getId() == null) {
             coordinator.setId(UUID.randomUUID().toString());
         }
@@ -58,6 +64,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/service")
     public ServiceType createService(ServiceType serviceType) {
+        log.info("Creating Service");
         if (serviceType.getId() == null) {
             serviceType.setId(UUID.randomUUID().toString());
         }
@@ -67,16 +74,20 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = "service")
     public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName) {
+        log.info("findingNeed...");
         return needServiceRepository.findByAvailableNameIn(serviceName);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = {"service", "amount"})
     public List<NeedServiceOrg> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("amount") BigDecimal amountAvailable) {
+
+        log.info("findingNeed...");
         return needServiceRepository.findByAvailableNameInAndAvailableAmount(serviceName, amountAvailable);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg/service")
     public List<ServiceType> getServices() {
+        log.info("Getting...");
         return Lists.newArrayList(serviceTypeRepository.findAll());
     }
 }
