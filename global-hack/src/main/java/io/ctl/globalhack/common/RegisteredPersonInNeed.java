@@ -1,6 +1,6 @@
 package io.ctl.globalhack.common;
 
-import io.ctl.globalhack.common.person.info.Ethnicity;
+import io.ctl.globalhack.common.person.info.Race;
 import io.ctl.globalhack.common.person.info.Gender;
 import io.ctl.globalhack.common.person.info.employment.EmploymentInfo;
 import io.ctl.globalhack.common.person.info.veteran.VeteranInfo;

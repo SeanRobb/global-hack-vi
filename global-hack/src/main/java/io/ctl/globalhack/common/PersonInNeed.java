@@ -1,6 +1,6 @@
 package io.ctl.globalhack.common;
 
-import io.ctl.globalhack.common.person.info.Ethnicity;
+import io.ctl.globalhack.common.person.info.Race;
 import io.ctl.globalhack.common.person.info.Gender;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -20,6 +20,6 @@ public class PersonInNeed {
     private Gender gender;
     private Date dateCreated;
     private Date dateUpdated;
-    private Ethnicity ethnicity;
+    private Race race;
     private List<String> phoneNumbers;
 }

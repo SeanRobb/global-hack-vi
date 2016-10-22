@@ -1,6 +1,7 @@
 package io.ctl.globalhack.common.person.info.enrollment;
 
 import io.ctl.globalhack.common.Address;
+import io.ctl.globalhack.common.ResidenceType;
 import io.ctl.globalhack.common.person.info.BasicInfo;
 import io.ctl.globalhack.common.person.info.Status;
 import lombok.Data;
