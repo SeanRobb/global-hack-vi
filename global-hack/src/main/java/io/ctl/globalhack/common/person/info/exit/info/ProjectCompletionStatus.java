@@ -1,7 +1,17 @@
 package io.ctl.globalhack.common.person.info.exit.info;
 
-/**
- * Created by sean on 10/22/16.
- */
 public enum ProjectCompletionStatus {
+    Completed_Project (1),
+    Youth_Left_Early (2),
+    Youth_Expelled (3);
+
+    private Integer value;
+
+    ProjectCompletionStatus(Integer value) {
+        this.value = value;
+    }
+
+    public Integer get() {
+        return value;
+    }
 }
