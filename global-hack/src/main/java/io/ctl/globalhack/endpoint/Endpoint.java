@@ -1,6 +1,5 @@
 package io.ctl.globalhack.endpoint;
 
-import io.ctl.globalhack.common.UiProvider;
 import io.ctl.globalhack.common.*;
 import io.ctl.globalhack.repository.*;
 import io.ctl.globalhack.service.PersonInNeedService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -160,7 +158,7 @@ public class Endpoint {
             @RequestParam(value = "Body", required = false) String message
     ) {
 
-        return personInNeedService.savePersonInNeed(fromPhoneNumber, city, state, postalCode, message);
+        return personInNeedService.onboardPersonInNeedThatSentText(fromPhoneNumber, city, state, postalCode, message);
     }
 
 
