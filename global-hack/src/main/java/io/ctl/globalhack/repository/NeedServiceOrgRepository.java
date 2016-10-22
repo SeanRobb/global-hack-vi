@@ -10,7 +10,9 @@ public interface NeedServiceOrgRepository extends MongoRepository<NeedServiceOrg
 
     List<NeedServiceOrg> findByAvailableNameIn(String serviceName);
 
+
     List<NeedServiceOrg> findByAvailableNameInAndAvailableAmountGreaterThanEqual(String serviceName, BigDecimal amount);
 
+//    List<NeedServiceOrg> findByAvailableNameIn(String serviceName);
 
 }
