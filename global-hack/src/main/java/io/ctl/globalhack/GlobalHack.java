@@ -1,11 +1,12 @@
 package io.ctl.globalhack;
 
-import com.ctlts.wfaas.data.orchestrate.config.EnableOrchestrateRepositories;
+import io.ctl.globalhack.config.GlobalHackConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@EnableOrchestrateRepositories
+@Import(GlobalHackConfig.class)
 public class GlobalHack {
 
     public static void main(String[] args) {
