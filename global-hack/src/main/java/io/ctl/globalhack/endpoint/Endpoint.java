@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping
 @Slf4j
 public class Endpoint {
 
@@ -109,5 +108,23 @@ public class Endpoint {
     public List<ServiceType> getServices() {
         log.info("Getting All Services...");
         return serviceTypeRepository.findAll();
+    }
+
+
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/twilio/personInNeed")
+    public PersonInNeed createTwilioPersonInNeed(@RequestParam(value="Body", required=false) String message) {
+
+        PersonInNeed personInNeed = new PersonInNeed();
+
+        log.info("Creating Person In Need... {}", personInNeed);
+        if (personInNeed.getId() == null) {
+            personInNeed.setId(UUID.randomUUID().toString());
+        }
+
+        if(message != null){
+            personInNeed.setMessage(message);
+        }
+        return personInNeedRepository.save(personInNeed);
     }
 }
