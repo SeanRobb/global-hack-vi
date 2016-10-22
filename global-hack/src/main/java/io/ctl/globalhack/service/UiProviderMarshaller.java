@@ -44,14 +44,14 @@ public class UiProviderMarshaller {
         );
 
 
-        if (StringUtils.isEmpty(uiProvider.getUnitNumber())) {
+        if (!StringUtils.isEmpty(uiProvider.getUnitNumber())) {
             Service newService = new Service()
                     .setName("Sleeping Units")
                     .setAmount(BigDecimal.valueOf(Integer.parseInt(uiProvider.getUnitNumber())));
             provider.getOffer().add(newService);
         }
 
-        if (StringUtils.isEmpty(uiProvider.getBedNumber())) {
+        if (!StringUtils.isEmpty(uiProvider.getBedNumber())) {
             Service newService = new Service()
                     .setName("Beds")
                     .setAmount(BigDecimal.valueOf(Integer.parseInt(uiProvider.getBedNumber())));
@@ -59,7 +59,7 @@ public class UiProviderMarshaller {
         }
 
 
-        uiProvider.getPopServed();
+        provider.setPopServed(uiProvider.getPopServed());
         uiProvider.getEligibilityCriteria();
 
         return provider;

@@ -2,8 +2,6 @@ package io.ctl.globalhack.common;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class UiProvider {
 
@@ -24,7 +22,7 @@ public class UiProvider {
     private String agencyExecNumber;
     private String agencyExecEmail;
 
-    private List<Boolean> popServed;
+    private PopServed popServed;
 
     private String eligibilityCriteria;
     private String admissionContactName;

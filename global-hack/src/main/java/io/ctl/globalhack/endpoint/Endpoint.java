@@ -51,6 +51,7 @@ public class Endpoint {
             personInNeed.setId(UUID.randomUUID().toString());
             personInNeed.setDateCreated(new Date());
         }
+        personInNeed.setDateUpdated(new Date());
         return personInNeedRepository.save(personInNeed);
     }
 
@@ -66,7 +67,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/provider")
     public Provider createNeedService(@RequestBody UiProvider uiProvider) {
-        log.info("Creating Need Service... {}", uiProvider);
+        log.info("Creating Provider Service... {}", uiProvider);
         Provider provider = uiProviderMarshaller.convert(uiProvider);
         provider.setId(UUID.randomUUID().toString());
         return providerRepository.save(provider);
@@ -158,7 +159,10 @@ public class Endpoint {
             @RequestParam(value = "Body", required = false) String message
     ) {
 
-        return personInNeedService.onboardPersonInNeedThatSentText(fromPhoneNumber, city, state, postalCode, message);
+        PersonInNeed personInNeed = personInNeedService.onboardPersonInNeedThatSentText(fromPhoneNumber, city, state, postalCode, message);
+        log.info("Person in need Created: {}", personInNeed);
+
+        return personInNeed;
     }
 
 

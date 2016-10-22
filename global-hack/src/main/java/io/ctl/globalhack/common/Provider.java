@@ -26,7 +26,7 @@ public class Provider {
     private ContactInfo agencyExecInfo;
     private String hoursOfOperation;
     private String peopleServed;
-
+    private PopServed popServed;
 
     private List<Service> offer;
 
