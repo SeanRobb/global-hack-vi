@@ -113,10 +113,17 @@ public class Endpoint {
 
 
     @RequestMapping(method = RequestMethod.PUT, path = "/twilio/personInNeed")
-    public PersonInNeed createTwilioPersonInNeed(@RequestBody PersonInNeed personInNeed) {
+    public PersonInNeed createTwilioPersonInNeed(@RequestParam(value="Body", required=false) String message) {
+
+        PersonInNeed personInNeed = new PersonInNeed();
+
         log.info("Creating Person In Need... {}", personInNeed);
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
+        }
+
+        if(message != null){
+            personInNeed.setMessage(message);
         }
         return personInNeedRepository.save(personInNeed);
     }

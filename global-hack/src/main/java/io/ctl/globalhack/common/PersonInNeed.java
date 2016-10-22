@@ -22,4 +22,5 @@ public class PersonInNeed {
     private Date dateUpdated;
     private Ethnicity ethnicity;
     private List<String> phoneNumbers;
+    private String message;
 }
