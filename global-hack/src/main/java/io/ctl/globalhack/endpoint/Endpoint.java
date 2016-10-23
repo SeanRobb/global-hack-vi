@@ -123,7 +123,14 @@ public class Endpoint {
     public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
 
         log.info("FindingNeed... Service Name: {} Amount Available: {}", serviceName, amountAvailable);
-        return providerRepository.findByAvailableNameInAndAvailableAmountGreaterThanEqual(serviceName, amountAvailable);
+        List<Provider> byAvailableNameIn = providerRepository.findByAvailableNameIn(serviceName);
+        return byAvailableNameIn.stream()
+                .filter(provider ->
+                        provider.getAvailable().stream()
+                                .filter(service -> service.getName().equalsIgnoreCase(serviceName))
+                                .filter(service -> service.getAmount().compareTo(amountAvailable) > 0)
+                                .collect(Collectors.toList()).isEmpty())
+                .collect(Collectors.toList());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/service")
