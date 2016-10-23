@@ -34,6 +34,12 @@ public class PersonInNeed {
     private List<String> phoneNumbers;
     private String message;
 
+    private String helpNeededDescription;
+    private String payPalId;
+    private String bitcoinAddress;
+    private String goalDollarAmount;
+    private String raisedDollarAmount;
+
     private Date dateCreated;
     private Date dateUpdated;
 }
