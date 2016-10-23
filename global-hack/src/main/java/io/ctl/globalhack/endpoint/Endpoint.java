@@ -128,7 +128,7 @@ public class Endpoint {
                 .filter(provider ->
                         provider.getAvailable().stream()
                                 .filter(service -> service.getName().equalsIgnoreCase(serviceName))
-                                .filter(service -> service.getAmount().compareTo(amountAvailable) > 0)
+                                .filter(service -> service.getAmount().compareTo(amountAvailable) >= 0)
                                 .collect(Collectors.toList()).isEmpty())
                 .collect(Collectors.toList());
     }
