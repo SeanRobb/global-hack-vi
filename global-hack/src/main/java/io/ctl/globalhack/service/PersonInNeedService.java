@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -71,6 +72,9 @@ public class PersonInNeedService {
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
         }
+
+        personInNeed.setDateCreated(new Date());
+        personInNeed.setDateUpdated(new Date());
 
         if (fromPhoneNumber != null) {
             personInNeed.setPhoneNumbers(Arrays.asList(fromPhoneNumber));
