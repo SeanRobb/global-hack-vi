@@ -135,7 +135,9 @@ public class Endpoint {
     @RequestMapping(method = RequestMethod.GET, path = "/personInNeed")
     public List<PersonInNeed> getPersonsInNeed() {
         log.info("Getting All Persons In Need...");
-        return personInNeedRepository.findAll();
+        List<PersonInNeed> personInNeeds = personInNeedRepository.findAll();
+        personInNeeds.sort((personInNeed1, personsInNeed2) -> personInNeed1.getDateCreated().compareTo(personsInNeed2.getDateCreated()));
+        return personInNeeds;
     }
 
 //    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
