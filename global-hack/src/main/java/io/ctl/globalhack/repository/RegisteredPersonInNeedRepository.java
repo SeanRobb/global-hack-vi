@@ -1,5 +1,6 @@
 package io.ctl.globalhack.repository;
 
+import io.ctl.globalhack.common.PersonInNeed;
 import io.ctl.globalhack.common.RegisteredPersonInNeed;
 import io.ctl.globalhack.common.person.info.veteran.VeteranInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,4 +12,7 @@ import java.util.List;
  */
 public interface RegisteredPersonInNeedRepository extends MongoRepository<RegisteredPersonInNeed, String> {
     List<RegisteredPersonInNeed> findByVeteranInfo(VeteranInfo veteranInfo);
+
+    List<PersonInNeed> findByPhoneNumbersIn(String phoneNumber);
+
 }
