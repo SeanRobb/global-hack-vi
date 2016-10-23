@@ -56,17 +56,17 @@ public class Endpoint {
         return personInNeedRepository.save(personInNeed);
     }
 
-//
-//    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
-//    public Provider createNeedService(@RequestBody Provider provider) {
-//        log.info("Creating Need Service... {}", provider);
-//        if (provider.getId() == null) {
-//            provider.setId(UUID.randomUUID().toString());
-//        }
-//        return providerRepository.save(provider);
-//    }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/provider")
+    public Provider createNeedService(@RequestBody Provider provider) {
+        log.info("Creating Need Service... {}", provider);
+        if (provider.getId() == null) {
+            provider.setId(UUID.randomUUID().toString());
+        }
+        return providerRepository.save(provider);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/provider")
     public Provider createNeedService(@RequestBody UiProvider uiProvider) {
         log.info("Creating Provider Service... {}", uiProvider);
         Provider provider = uiProviderMarshaller.convert(uiProvider);
@@ -145,6 +145,11 @@ public class Endpoint {
                 .filter(personInNeed -> personInNeed != null)
                 .filter(personInNeed -> personInNeed.getPhoneNumbers() != null)
                 .filter(personInNeed -> !personInNeed.getPhoneNumbers().isEmpty())
+                .filter(personInNeed -> personInNeed.getPhoneNumbers()
+                        .stream()
+                        .filter(phoneNumber -> phoneNumber!=null)
+                        .collect(Collectors.toList()).isEmpty()
+                )
                 .filter(personInNeed -> personInNeed.getDateCreated() != null)
                 .sorted((personInNeed1, personsInNeed2) -> personInNeed1.getDateCreated().compareTo(personsInNeed2.getDateCreated()))
                 .collect(Collectors.toList());
