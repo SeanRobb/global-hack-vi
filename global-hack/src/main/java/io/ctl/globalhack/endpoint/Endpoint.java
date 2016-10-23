@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -136,8 +137,11 @@ public class Endpoint {
     public List<PersonInNeed> getPersonsInNeed() {
         log.info("Getting All Persons In Need...");
         List<PersonInNeed> personInNeeds = personInNeedRepository.findAll();
-        personInNeeds.sort((personInNeed1, personsInNeed2) -> personInNeed1.getDateCreated().compareTo(personsInNeed2.getDateCreated()));
-        return personInNeeds;
+        return personInNeeds.stream()
+                .filter(personInNeed -> personInNeed != null)
+                .filter(personInNeed -> personInNeed.getDateCreated() != null)
+                .sorted((personInNeed1, personsInNeed2) -> personInNeed1.getDateCreated().compareTo(personsInNeed2.getDateCreated()))
+                .collect(Collectors.toList());
     }
 
 //    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
