@@ -127,9 +127,13 @@ public class Endpoint {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/service")
-    public List<ServiceType> getServices() {
+    public List<String> getServices() {
         log.info("Getting All Services...");
-        return serviceTypeRepository.findAll();
+        List<Provider> all = providerRepository.findAll();
+        return all.stream()
+                .map(Provider::getOffer)
+                .flatMap(services -> services.stream().map(Service::getName).distinct())
+                .collect(Collectors.toList());
     }
 
 
