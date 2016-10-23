@@ -41,6 +41,9 @@ public class Endpoint {
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
             personInNeed.setDateCreated(new Date());
+        } else {
+            PersonInNeed one = personInNeedRepository.findOne(personInNeed.getId());
+            personInNeed.setDateCreated(one.getDateCreated());
         }
         personInNeed.setDateUpdated(new Date());
         return personInNeedRepository.save(personInNeed);
@@ -52,6 +55,9 @@ public class Endpoint {
         if (personInNeed.getId() == null) {
             personInNeed.setId(UUID.randomUUID().toString());
             personInNeed.setDateCreated(new Date());
+        }else {
+            PersonInNeed one = personInNeedRepository.findOne(personInNeed.getId());
+            personInNeed.setDateCreated(one.getDateCreated());
         }
         personInNeed.setDateUpdated(new Date());
         return personInNeedRepository.save(personInNeed);
