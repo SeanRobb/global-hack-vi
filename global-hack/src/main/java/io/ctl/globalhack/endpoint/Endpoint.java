@@ -173,8 +173,10 @@ public class Endpoint {
             @RequestParam(value = "FromZip", required = false) String postalCode,
             @RequestParam(value = "Body", required = false) String message
     ) {
-        PersonInNeed personInNeed = personInNeedService.savePersonInNeed(fromPhoneNumber, city, state, postalCode, message);
+
+        PersonInNeed personInNeed = personInNeedService.onboardPersonInNeedThatSentText(fromPhoneNumber, city, state, postalCode, message);
         log.info("Person in need Created: {}", personInNeed);
+
         return personInNeed;
     }
 

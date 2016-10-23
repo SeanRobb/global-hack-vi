@@ -39,6 +39,15 @@ public class PersonInNeedService {
                                                         String state,
                                                         String postalCode,
                                                         String message){
+
+        log.info("Onboarding Person In Need... {} {} {} {} {}",
+                fromPhoneNumber,
+                city,
+                state,
+                postalCode,
+                message
+                );
+
         PersonInNeed personInNeed = savePersonInNeed(fromPhoneNumber, city, state, postalCode, message);
 
         sendPersonInNeedMatchingProvider(personInNeed);
@@ -83,6 +92,7 @@ public class PersonInNeedService {
 
     public List<Provider> sendPersonInNeedMatchingProvider(PersonInNeed personInNeed){
 
+        log.info("Sending Person in need matching provider... {}", personInNeed);
 
         List<Provider> providers = findPersonInNeedMatchingProvider(personInNeed);
 
@@ -103,21 +113,28 @@ public class PersonInNeedService {
 
     private void sendMessage(PersonInNeed personInNeed, String messageToPersonInNeed) {
 
+        log.info("Sending Message... {}, {}", personInNeed, messageToPersonInNeed);
+
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         for(String phoneNumber: personInNeed.getPhoneNumbers()){
 
-            Message message = Message.creator(
-                    new PhoneNumber(phoneNumber),  // To number
-                    new PhoneNumber(TWILIO_PHONE_NUMBER),  // From number
-                    messageToPersonInNeed                    // SMS body
-            ).create();
+            if(phoneNumber != null && phoneNumber.length() > 0){
 
+                Message message = Message.creator(
+                        new PhoneNumber(phoneNumber),  // To number
+                        new PhoneNumber(TWILIO_PHONE_NUMBER),  // From number
+                        messageToPersonInNeed                    // SMS body
+                ).create();
+
+            }
         }
 
     }
 
     public List<Provider> findPersonInNeedMatchingProvider(PersonInNeed personInNeed){
+
+        log.info("Finding person in need matching provider... {}", personInNeed);
 
         List<Provider> providers = providerRepository.findByAddressZipCode(personInNeed.getAddress().getZipCode());
 
