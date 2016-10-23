@@ -107,19 +107,19 @@ public class Endpoint {
     // GETS
 
 
-    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg")
+    @RequestMapping(method = RequestMethod.GET, path = "/provider")
     public List<Provider> getNeedServiceOrg() {
         log.info("Finding Need Org...");
         return providerRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = "service")
+    @RequestMapping(method = RequestMethod.GET, path = "/provider", params = "service")
     public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName) {
         log.info("Finding Need... Service Name: {}", serviceName);
         return providerRepository.findByAvailableNameIn(serviceName);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/needServiceOrg", params = {"service", "available"})
+    @RequestMapping(method = RequestMethod.GET, path = "/provider", params = {"service", "available"})
     public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
 
         log.info("FindingNeed... Service Name: {} Amount Available: {}", serviceName, amountAvailable);
