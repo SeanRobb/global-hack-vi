@@ -10,7 +10,7 @@ public interface ProviderRepository extends MongoRepository<Provider, String> {
 
     List<Provider> findByAvailableNameIn(String serviceName);
 
-    List<Provider> findByAvailableNameInAndAvailableAmountGreaterThanEqual(String serviceName, BigDecimal amount);
+    List<Provider> findByAvailableNameInAndAvailableAmountGreaterThanEqual(String serviceName, double amount);
 
     List<Provider> findByAddressZipCode(String zipCode);
 
