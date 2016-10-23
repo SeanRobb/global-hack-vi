@@ -102,6 +102,32 @@ public class Endpoint {
         return providerRepository.save(provider);
     }
 
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
+    public List<Provider> createNeedService(@RequestBody List<Provider> providers) {
+        return providers.stream().map(provider -> {
+            log.info("Creating Need Service... {}", provider);
+            if (provider.getId() == null) {
+                provider.setId(UUID.randomUUID().toString());
+            }
+
+            if (provider.getOffer() != null) {
+                provider.getOffer().stream()
+                        .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
+                        .forEach(service -> {
+                                    ServiceType serviceType = new ServiceType()
+                                            .setId(UUID.randomUUID().toString())
+                                            .setName(service.getName());
+                                    serviceTypeRepository.save(serviceType);
+                                }
+
+                        );
+            }
+
+            return providerRepository.save(provider);
+        }).collect(Collectors.toList());
+    }
+
     @RequestMapping(method = RequestMethod.POST, path = "/provider")
     public Provider createNeedService(@RequestBody UiProvider uiProvider) {
         log.info("Creating Provider Service... {}", uiProvider);
