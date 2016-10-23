@@ -123,7 +123,7 @@ public class Endpoint {
     public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
 
         log.info("FindingNeed... Service Name: {} Amount Available: {}", serviceName, amountAvailable);
-        return providerRepository.findByAvailableNameInAndAvailableAmountGreaterThanEqual(serviceName, amountAvailable.doubleValue());
+        return providerRepository.findByAvailableNameInAndAvailableAmountGreaterThanEqual(serviceName, amountAvailable.intValue());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/service")
