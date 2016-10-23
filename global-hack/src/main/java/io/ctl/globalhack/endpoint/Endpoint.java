@@ -185,6 +185,19 @@ public class Endpoint {
         return registeredPersonInNeedRepository.findByPersonInNeedPhoneNumbersIn(phoneNumber);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "id")
+    public PersonInNeed getPersonsInNeedId(@RequestParam("id") String id) {
+        log.info("Getting All Persons In Need...");
+        return personInNeedRepository.findOne(id);
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/registeredPersonInNeed", params = "id")
+    public RegisteredPersonInNeed getRegisteredPersonsInNeedId(@RequestParam("id") String id) {
+        log.info("Getting All Persons In Need...");
+        return registeredPersonInNeedRepository.findOne(id);
+    }
+
 //Twilio
 
     @RequestMapping(method = RequestMethod.POST, path = "/twilio/personInNeed")
