@@ -209,6 +209,7 @@ public class Endpoint {
                         .collect(Collectors.toList()).isEmpty()
                 )
                 .filter(personInNeed -> personInNeed.getDateCreated() != null)
+                .filter(personInNeed -> personInNeed.getDateUpdated() != null)
                 .sorted((personInNeed1, personsInNeed2) -> personInNeed1.getDateCreated().compareTo(personsInNeed2.getDateCreated()))
                 .collect(Collectors.toList());
     }
