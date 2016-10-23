@@ -57,6 +57,20 @@ public class Endpoint {
         return personInNeedRepository.save(personInNeed);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, path = "/personInNeed")
+    public List<PersonInNeed> updatePersonsInNeed(@RequestBody List<PersonInNeed> personsInNeed) {
+        return personsInNeed.stream().map(personInNeed -> {
+                    log.info("Creating Person In Need... {}", personInNeed);
+                    if (personInNeed.getId() == null) {
+                        personInNeed.setId(UUID.randomUUID().toString());
+                        personInNeed.setDateCreated(new Date());
+                    }
+                    personInNeed.setDateUpdated(new Date());
+                    return personInNeedRepository.save(personInNeed);
+                }
+        ).collect(Collectors.toList());
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, path = "/personInNeed", params = "id")
     public void updatePersonInNeed(@RequestParam("id") String id) {
         log.info("Deleting Person In Need... {}", id);
