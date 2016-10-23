@@ -63,6 +63,18 @@ public class Endpoint {
         if (provider.getId() == null) {
             provider.setId(UUID.randomUUID().toString());
         }
+
+        provider.getOffer().stream()
+                .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
+                .forEach(service -> {
+                            ServiceType serviceType = new ServiceType()
+                                    .setId(UUID.randomUUID().toString())
+                                    .setName(service.getName());
+                            serviceTypeRepository.save(serviceType);
+                        }
+
+                );
+
         return providerRepository.save(provider);
     }
 
@@ -104,24 +116,23 @@ public class Endpoint {
         return serviceTypeRepository.save(serviceType);
     }
 
-    // GETS
+// GETS
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/provider")
-    public List<Provider> getNeedServiceOrg() {
+    public List<Provider> getProvider() {
         log.info("Finding Need Org...");
         return providerRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/provider", params = "service")
-    public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName) {
+    public List<Provider> getProvider(@RequestParam("service") String serviceName) {
         log.info("Finding Need... Service Name: {}", serviceName);
         return providerRepository.findByAvailableNameIn(serviceName);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/provider", params = {"service", "available"})
-    public List<Provider> getNeedServiceOrg(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
-
+    public List<Provider> getProvider(@RequestParam("service") String serviceName, @RequestParam("available") BigDecimal amountAvailable) {
         log.info("FindingNeed... Service Name: {} Amount Available: {}", serviceName, amountAvailable);
         List<Provider> byAvailableNameIn = providerRepository.findByAvailableNameIn(serviceName);
         return byAvailableNameIn.stream()
@@ -161,16 +172,6 @@ public class Endpoint {
                 .sorted((personInNeed1, personsInNeed2) -> personInNeed1.getDateCreated().compareTo(personsInNeed2.getDateCreated()))
                 .collect(Collectors.toList());
     }
-
-//    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
-//    public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
-//        log.info("Getting All Persons In Need...");
-//        if (!isVeteran) {
-//            return registeredPersonInNeedRepository.findByVeteranInfoYearEnteredServiceNotExists();
-//        } else {
-//            return registeredPersonInNeedRepository.findByVeteranInfoYearEnteredServiceExists();
-//        }
-//    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "phoneNumber")
     public List<PersonInNeed> getPersonsInNeedPhoneNumber(@RequestParam("phoneNumber") String phoneNumber) {
