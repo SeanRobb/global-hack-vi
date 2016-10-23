@@ -25,6 +25,8 @@ public class PersonInNeed {
     private Race race;
     private Ethnicity ethnicity;
 
+    private String img;
+
     //Location
     private Address address;
 

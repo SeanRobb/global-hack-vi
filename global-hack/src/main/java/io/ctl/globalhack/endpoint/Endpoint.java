@@ -87,7 +87,7 @@ public class Endpoint {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/provider")
     public Provider createNeedService(@RequestBody Provider provider) {
-        log.info("Creating Need Service... {}", provider);
+        log.info("Updating Provider... {}", provider);
         if (provider.getId() == null) {
             provider.setId(UUID.randomUUID().toString());
         }
