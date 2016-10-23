@@ -17,7 +17,6 @@ public class Provider {
     private String phone;
     private String website;
 
-    private OrganizationType organizationType;
     private ProviderStatus nonProfitStatus;
     private ProviderStatus governmentEntity;
     private ProviderStatus faithBased;

@@ -58,6 +58,7 @@ public class UiProviderMarshaller {
             provider.getOffer().add(newService);
         }
 
+        provider.setAvailable(provider.getOffer());
 
         provider.setPopServed(uiProvider.getPopServed());
         uiProvider.getEligibilityCriteria();

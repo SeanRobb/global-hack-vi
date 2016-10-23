@@ -142,10 +142,23 @@ public class Endpoint {
     public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
         log.info("Getting All Persons In Need...");
         if (!isVeteran) {
-            return registeredPersonInNeedRepository.findByVeteranInfo(null);
+            return registeredPersonInNeedRepository.findByVeteranInfoNotExists();
         } else {
-            return registeredPersonInNeedRepository.findByVeteranInfo(null);
+            return registeredPersonInNeedRepository.findByVeteranInfoExists();
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "phoneNumber")
+    public List<PersonInNeed> getPersonsInNeedPhoneNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        log.info("Getting All Persons In Need...");
+        return personInNeedRepository.findByPhoneNumbersIn(phoneNumber);
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/registeredPersonInNeed", params = "phoneNumber")
+    public List<PersonInNeed> getRegisteredPersonsInNeedPhoneNumber(@RequestParam("phoneNumber") String phoneNumber) {
+        log.info("Getting All Persons In Need...");
+        return registeredPersonInNeedRepository.findByPhoneNumbersIn(phoneNumber);
     }
 
 //Twilio
