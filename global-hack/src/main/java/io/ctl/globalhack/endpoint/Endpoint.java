@@ -57,6 +57,13 @@ public class Endpoint {
         return personInNeedRepository.save(personInNeed);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, path = "/personInNeed", params = "id")
+    public void updatePersonInNeed(@RequestParam("id") String id) {
+        log.info("Deleting Person In Need... {}", id);
+
+        personInNeedRepository.delete(id);
+    }
+
 
     @RequestMapping(method = RequestMethod.PUT, path = "/provider")
     public Provider createNeedService(@RequestBody Provider provider) {
@@ -65,7 +72,7 @@ public class Endpoint {
             provider.setId(UUID.randomUUID().toString());
         }
 
-        if(provider.getOffer()!=null){
+        if (provider.getOffer() != null) {
             provider.getOffer().stream()
                     .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
                     .forEach(service -> {
@@ -86,7 +93,7 @@ public class Endpoint {
         log.info("Creating Provider Service... {}", uiProvider);
         Provider provider = uiProviderMarshaller.convert(uiProvider);
         provider.setId(UUID.randomUUID().toString());
-        if(provider.getOffer()!=null){
+        if (provider.getOffer() != null) {
             provider.getOffer().stream()
                     .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
                     .forEach(service -> {
