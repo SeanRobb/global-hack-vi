@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -141,6 +142,24 @@ public class Endpoint {
                                 .filter(service -> service.getName().equalsIgnoreCase(serviceName))
                                 .filter(service -> service.getAmount().compareTo(amountAvailable) < 0)
                                 .collect(Collectors.toList()).isEmpty())
+                .sorted((provider1, provider2) -> {
+                    Optional<Service> first = provider1.getAvailable().stream()
+                            .filter(service -> service.getName().equalsIgnoreCase(serviceName))
+                            .findFirst();
+                    Optional<Service> second = provider2.getAvailable().stream()
+                            .filter(service -> service.getName().equalsIgnoreCase(serviceName))
+                            .findFirst();
+
+                    if (first.isPresent() && !second.isPresent()) {
+                        return 1;
+                    }
+                    if (!first.isPresent() && second.isPresent()) {
+                        return -1;
+                    }
+
+                    return first.get().getAmount().compareTo(second.get().getAmount());
+
+                })
                 .collect(Collectors.toList());
     }
 
