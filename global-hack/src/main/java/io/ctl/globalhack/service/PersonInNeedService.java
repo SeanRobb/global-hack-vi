@@ -96,16 +96,22 @@ public class PersonInNeedService {
 
         List<Provider> providers = findPersonInNeedMatchingProvider(personInNeed);
 
+        String message = "A support coordinator will contact you shortly. /n/n/n";
+
         if(providers != null && providers.size() > 0){
 
-            String message = "";
+            message += "Providers Near You: /n/n";
 
             for(Provider provider : providers){
-                message += provider.getAddress().getZipCode() + "/n";
+                message +=
+                        provider.getName() + "/n" +
+                        provider.getAddress().getStreet() + "/n" +
+                        provider.getAddress().getCity() + "/n" +
+                        provider.getAddress().getState() + "/n" +
+                        provider.getAddress().getZipCode() + "/n/n";
             }
-
-            sendMessage(personInNeed, message);
         }
+        sendMessage(personInNeed, message);
 
         return providers;
 
