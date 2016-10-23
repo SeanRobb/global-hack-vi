@@ -65,16 +65,18 @@ public class Endpoint {
             provider.setId(UUID.randomUUID().toString());
         }
 
-        provider.getOffer().stream()
-                .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
-                .forEach(service -> {
-                            ServiceType serviceType = new ServiceType()
-                                    .setId(UUID.randomUUID().toString())
-                                    .setName(service.getName());
-                            serviceTypeRepository.save(serviceType);
-                        }
+        if(provider.getOffer()!=null){
+            provider.getOffer().stream()
+                    .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
+                    .forEach(service -> {
+                                ServiceType serviceType = new ServiceType()
+                                        .setId(UUID.randomUUID().toString())
+                                        .setName(service.getName());
+                                serviceTypeRepository.save(serviceType);
+                            }
 
-                );
+                    );
+        }
 
         return providerRepository.save(provider);
     }
@@ -84,16 +86,18 @@ public class Endpoint {
         log.info("Creating Provider Service... {}", uiProvider);
         Provider provider = uiProviderMarshaller.convert(uiProvider);
         provider.setId(UUID.randomUUID().toString());
-        provider.getOffer().stream()
-                .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
-                .forEach(service -> {
-                            ServiceType serviceType = new ServiceType()
-                                    .setId(UUID.randomUUID().toString())
-                                    .setName(service.getName());
-                            serviceTypeRepository.save(serviceType);
-                        }
+        if(provider.getOffer()!=null){
+            provider.getOffer().stream()
+                    .filter(service -> serviceTypeRepository.findByName(service.getName()) == null)
+                    .forEach(service -> {
+                                ServiceType serviceType = new ServiceType()
+                                        .setId(UUID.randomUUID().toString())
+                                        .setName(service.getName());
+                                serviceTypeRepository.save(serviceType);
+                            }
 
-                );
+                    );
+        }
         return providerRepository.save(provider);
     }
 

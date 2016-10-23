@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Component
 public class UiProviderMarshaller {
@@ -59,6 +60,12 @@ public class UiProviderMarshaller {
         }
 
         provider.setAvailable(provider.getOffer());
+
+        provider.setInUse(provider
+                .getOffer().stream()
+                .map(service -> new Service()
+                        .setAmount(BigDecimal.ZERO)
+                        .setName(service.getName())).collect(Collectors.toList()));
 
         provider.setPopServed(uiProvider.getPopServed());
         uiProvider.getEligibilityCriteria();
