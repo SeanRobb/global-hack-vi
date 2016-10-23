@@ -1,7 +1,6 @@
 package io.ctl.globalhack.endpoint;
 
 import io.ctl.globalhack.common.*;
-import io.ctl.globalhack.common.person.info.Ethnicity;
 import io.ctl.globalhack.repository.*;
 import io.ctl.globalhack.service.PersonInNeedService;
 import io.ctl.globalhack.service.UiProviderMarshaller;
@@ -139,22 +138,21 @@ public class Endpoint {
         return personInNeedRepository.findAll();
     }
 
-//    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
-//    public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
-//        log.info("Getting All Persons In Need...");
-//        if (!isVeteran) {
-//            return registeredPersonInNeedRepository.findByVeteranInfo(null);
-//        } else {
-//            return registeredPersonInNeedRepository.findByVeteranInfo(null);
-//        }
-//    }
+    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
+    public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
+        log.info("Getting All Persons In Need...");
+        if (!isVeteran) {
+            return registeredPersonInNeedRepository.findByVeteranInfoNotExists();
+        } else {
+            return registeredPersonInNeedRepository.findByVeteranInfoExists();
+        }
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "phoneNumber")
     public List<PersonInNeed> getPersonsInNeedPhoneNumber(@RequestParam("phoneNumber") String phoneNumber) {
         log.info("Getting All Persons In Need...");
-            return personInNeedRepository.findByPhoneNumbersIn(phoneNumber);
+        return personInNeedRepository.findByPhoneNumbersIn(phoneNumber);
     }
-
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/registeredPersonInNeed", params = "phoneNumber")
