@@ -144,7 +144,7 @@ public class Endpoint {
         return personInNeeds.stream()
                 .filter(personInNeed -> personInNeed != null)
                 .filter(personInNeed -> personInNeed.getPhoneNumbers() != null)
-                .filter(personInNeed -> personInNeed.getPhoneNumbers().isEmpty())
+                .filter(personInNeed -> !personInNeed.getPhoneNumbers().isEmpty())
                 .filter(personInNeed -> personInNeed.getDateCreated() != null)
                 .sorted((personInNeed1, personsInNeed2) -> personInNeed1.getDateCreated().compareTo(personsInNeed2.getDateCreated()))
                 .collect(Collectors.toList());
