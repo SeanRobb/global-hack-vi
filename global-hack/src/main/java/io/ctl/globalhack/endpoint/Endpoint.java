@@ -138,15 +138,15 @@ public class Endpoint {
         return personInNeedRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
-    public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
-        log.info("Getting All Persons In Need...");
-        if (!isVeteran) {
-            return registeredPersonInNeedRepository.findByVeteranInfoNotExists();
-        } else {
-            return registeredPersonInNeedRepository.findByVeteranInfoExists();
-        }
-    }
+//    @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "veteranStatus")
+//    public List<RegisteredPersonInNeed> getPersonsInNeedVetQuery(@RequestParam("veteranStatus") Boolean isVeteran) {
+//        log.info("Getting All Persons In Need...");
+//        if (!isVeteran) {
+//            return registeredPersonInNeedRepository.findByVeteranInfoYearEnteredServiceNotExists();
+//        } else {
+//            return registeredPersonInNeedRepository.findByVeteranInfoYearEnteredServiceExists();
+//        }
+//    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/personInNeed", params = "phoneNumber")
     public List<PersonInNeed> getPersonsInNeedPhoneNumber(@RequestParam("phoneNumber") String phoneNumber) {
@@ -156,9 +156,9 @@ public class Endpoint {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/registeredPersonInNeed", params = "phoneNumber")
-    public List<PersonInNeed> getRegisteredPersonsInNeedPhoneNumber(@RequestParam("phoneNumber") String phoneNumber) {
+    public List<RegisteredPersonInNeed> getRegisteredPersonsInNeedPhoneNumber(@RequestParam("phoneNumber") String phoneNumber) {
         log.info("Getting All Persons In Need...");
-        return registeredPersonInNeedRepository.findByPhoneNumbersIn(phoneNumber);
+        return registeredPersonInNeedRepository.findByPersonInNeedPhoneNumbersIn(phoneNumber);
     }
 
 //Twilio

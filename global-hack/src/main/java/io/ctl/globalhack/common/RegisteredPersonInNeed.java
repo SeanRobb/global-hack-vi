@@ -16,5 +16,4 @@ public class RegisteredPersonInNeed {
     private PersonInNeed personInNeed;
     private VeteranInfo veteranInfo;
     private EmploymentInfo employmentInfo;
-
 }
