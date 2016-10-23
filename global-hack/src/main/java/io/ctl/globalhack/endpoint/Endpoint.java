@@ -57,7 +57,7 @@ public class Endpoint {
         return personInNeedRepository.save(personInNeed);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/personInNeed")
+    @RequestMapping(method = RequestMethod.PUT, path = "/personInNeed/group")
     public List<PersonInNeed> updatePersonsInNeed(@RequestBody List<PersonInNeed> personsInNeed) {
         return personsInNeed.stream().map(personInNeed -> {
                     log.info("Creating Person In Need... {}", personInNeed);
@@ -103,7 +103,7 @@ public class Endpoint {
     }
 
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/provider")
+    @RequestMapping(method = RequestMethod.PUT, path = "/provider/group")
     public List<Provider> createNeedService(@RequestBody List<Provider> providers) {
         return providers.stream().map(provider -> {
             log.info("Creating Need Service... {}", provider);
