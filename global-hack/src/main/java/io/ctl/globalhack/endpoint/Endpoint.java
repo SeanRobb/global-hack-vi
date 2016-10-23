@@ -178,7 +178,7 @@ public class Endpoint {
                         return -1;
                     }
 
-                    return first.get().getAmount().compareTo(second.get().getAmount());
+                    return second.get().getAmount().compareTo(first.get().getAmount());
 
                 })
                 .collect(Collectors.toList());
